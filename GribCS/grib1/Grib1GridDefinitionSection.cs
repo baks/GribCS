@@ -703,7 +703,7 @@ namespace Seaware.GribCS.Grib1
 					
 					// octet 29-32 reserved
 					reserved = GribNumbers.int4(raf);
-					
+    					
 					if (length > 32)
                     {
                         // getP_VorL(raf);
@@ -712,6 +712,41 @@ namespace Seaware.GribCS.Grib1
                     }
 					
 					break; // end Polar Stereographic grids
+
+                    //rotated grid
+                case 10:
+                    //18-20
+			        this.lat2 = GribNumbers.int3(raf)/1000.0;
+			        //21-23
+                    this.lon2 = GribNumbers.int3(raf)/1000.0;
+
+                    //24-25
+			        var tmpDx = GribNumbers.int2(raf);
+			        this.dx = tmpDx == -1 ? -9999.0 : tmpDx/1000.0;
+
+                    //26-27
+			        var tmpDy = GribNumbers.int2(raf);
+			        this.dy = tmpDy == -1 ? -9999.0 : tmpDy/1000.0;
+
+                    //28
+			        scan = raf.ReadByte();
+			        //29-32
+                    GribNumbers.int4(raf);
+
+                    //33-35
+			        this.latsp = GribNumbers.int3(raf)/1000.0;
+			        //36-38
+                    this.lonsp = GribNumbers.int3(raf)/1000.0;
+
+                    //39-42 - angle
+			        GribNumbers.float4(raf);
+
+			        if (length > 42)
+			        {
+			            SupportClass.Skip(raf, length - 42);
+			        }
+
+                    break;
 				
 				
 				default: 

@@ -236,6 +236,11 @@ namespace Seaware.GribCS.Grib2
 					// Read Section 0 Indicator Section
 					is_Renamed = new Grib2IndicatorSection(raf); // section 0
 					//System.out.println( "Grib record length=" + is.getGribLength());
+
+				    if (is_Renamed.GribEdition != 2)
+				    {
+				        throw new NoValidGribException("Grib2Input.scan expected GRIB2 file");
+				    }
 					
 					// Read other Sections
 					id = new Grib2IdentificationSection(raf); // Section 1

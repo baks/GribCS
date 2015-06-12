@@ -497,7 +497,7 @@ namespace Seaware.GribCS.Grib2
 
                             if (timeRanges == 1)
                             {
-                                this.forecastTime = this.forecastTime + calculateIncrement(statisticalProcess, timeIncrement);
+                                this.forecastTime += calculateIncrement(statisticalProcess, timeIncrement);
                             }
 							//System.out.println( "PDS lengthTR=" + lengthTR ) ;
 							

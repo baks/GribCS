@@ -285,6 +285,9 @@ namespace Seaware.GribCS.Grib2
 				//System.out.println( "DS L[ i ]=" + L[ i ] );
 				countL += L[i];
 			}
+		    countL -= L[NG - 1];
+		    countL += drs.LengthLastGroup;
+		    L[NG - 1] = drs.LengthLastGroup;
 			//System.out.println( "DS countL=" + countL );
 			
 			// [zz +1 ]-nn get X2 values and calculate the results Y using formula
@@ -536,6 +539,9 @@ namespace Seaware.GribCS.Grib2
 				//System.out.println( "DS L[ i ]=" + L[ i ] );
 				countL += L[i];
 			}
+            countL -= L[NG - 1];
+            countL += drs.LengthLastGroup;
+            L[NG - 1] = drs.LengthLastGroup;
 			//System.out.println( "DS countL=" + countL );
 			
 			// [zz +1 ]-nn get X2 values and add X1[ i ] + X2

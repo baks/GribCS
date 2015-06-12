@@ -488,12 +488,17 @@ namespace Seaware.GribCS.Grib2
 							//System.out.println( "PDS statisticalProcess=" + statisticalProcess ) ;
 							int timeIncrement = GribNumbers.int4(raf);
 							//System.out.println( "PDS timeIncrement=" + timeIncrement ) ;
-							
+
 							// 54 - 58
 							int indicatorTR = raf.ReadByte();
 							//System.out.println( "PDS indicatorTR=" + indicatorTR ) ;
 							
 							int lengthTR = GribNumbers.int4(raf);
+
+                            if (timeRanges == 1)
+                            {
+                                this.forecastTime = this.forecastTime + calculateIncrement(statisticalProcess, timeIncrement);
+                            }
 							//System.out.println( "PDS lengthTR=" + lengthTR ) ;
 							
 							//int indicatorSF = raf.read();
@@ -1002,5 +1007,31 @@ namespace Seaware.GribCS.Grib2
 				
 			}
 		} // end getTypeSurfaceUnit
+
+        private static int calculateIncrement(int num, int num2)
+        {
+            switch (num)
+            {
+                case 0:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 13:
+                    return num2;
+                case 1:
+                    return num2;
+                case 10:
+                    return 3 * num2;
+                case 11:
+                    return 6 * num2;
+                case 12:
+                    return 12 * num2;
+            }
+            return -9999;
+        }
+
 	} // end Grib2ProductDefinitionSection
 }

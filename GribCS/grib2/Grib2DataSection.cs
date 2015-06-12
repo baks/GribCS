@@ -667,16 +667,12 @@ namespace Seaware.GribCS.Grib2
 				float sum = 0;
 				if (mvm == 0)
 				{
+                    data[0] = g1;
 					// no missing values
 					for (int i = 1; i < data.Length; i++)
 					{
 						data[i] += gMin; // add minimum back
-					}
-					data[0] = g1;
-					for (int i = 1; i < data.Length; i++)
-					{
-						sum += data[i];
-						data[i] = data[i - 1] + sum;
+					    data[i] += data[i - 1];
 					}
 				}
 				else
